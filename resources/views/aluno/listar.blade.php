@@ -41,7 +41,7 @@
                         <td>INATIVO</td>
                     @endif
 
-                    <td><a class="btn btn-sm btn-info" href="#">VER</a>&nbsp;<a class="btn btn-sm btn-danger" href="#" onclick="apagar('#');">APAGAR</a></td>
+                    <td><a class="btn btn-sm btn-info" href="{{ action("AlunoController@editar", $value->id) }}">VER</a>&nbsp;<a class="btn btn-sm btn-danger" href="#" onclick="apagar('{{ action("AlunoController@apagar", $value->id) }}');">APAGAR</a></td>
 
                 </tr>
             @endforeach

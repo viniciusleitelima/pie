@@ -71,39 +71,55 @@ class AlunoController extends Controller
 
         return redirect()->action('AlunoController@listar')->withInput();
     }
-    /*
+
     public function editar($id)
     {
-        $curso =  Curso::find($id);
+        $aluno =  Aluno::find($id);
 
-        if (empty($curso)){
-            return 'Curso nao existe';
+        if (empty($aluno)){
+            return 'Aluno nao existe';
         }else {
-            return view('curso/editar')->with('curso', $curso);
+            return view('aluno/editar')->with('aluno', $aluno);
         }
     }
 
-    public function update($id)
+        public function update($id)
     {
         $nome = Request()->input('nome');
-        $duracao = Request()->input('duracao');
+        $cpf = Request()->input('cpf');
+        $dt_nascimento = Request()->input('dt_nascimento');
+        $celular = Request()->input('celular');
+        $endereco = Request()->input('endereco');
+        $email = Request()->input('email');
+        $numero = Request()->input('numero');
+        $bairro = Request()->input('bairro');
+        $cidade = Request()->input('cidade');
+        $uf = Request()->input('uf');
         $status = Request()->input('status');
 
-        $curso =  Curso::find($id);
-        $curso->nome =  $nome;
-        $curso->duracao = $duracao;
-        $curso->status = $status;
-        $curso->save();
+        $aluno =  Aluno::find($id);
+        $aluno->nome =  $nome;
+        $aluno->cpf = $cpf;
+        $aluno->dt_nascimento = $dt_nascimento;
+        $aluno->email = $email;
+        $aluno->celular = $celular;
+        $aluno->endereco = $endereco;
+        $aluno->numero = $numero;
+        $aluno->bairro = $bairro;
+        $aluno->cidade = $cidade;
+        $aluno->uf = $uf;
+        $aluno->status = $status;
+        $aluno->save();
 
-        return redirect()->action('CursoController@listar')->withInput();
+        return redirect()->action('AlunoController@listar')->withInput();
     }
 
     public function apagar($id)
     {
-        $curso =  Curso::find($id);
+        $curso =  Aluno::find($id);
         $curso->delete();
 
-        return redirect()->action('CursoController@listar');
+        return redirect()->action('AlunoController@listar');
     }
-    */
+
 }
