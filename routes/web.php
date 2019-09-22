@@ -26,6 +26,14 @@ Route::post('/instituicao/salvar','InstituicaoController@salvar');
 Route::get('/instituicao/editar/{id}','InstituicaoController@editar');
 Route::post('/instituicao/update/{id}','InstituicaoController@update');
 
+Route::get('/instituicao/ver_cursos/{id}','InstituicaoController@verCursos');
+
+Route::get('/instituicao/cadastrar_cursos/{id}','InstituicaoController@cadastrarCursos');
+Route::get('/instituicao/alterar_curso/{id}/{status}','InstituicaoController@alterarCurso');
+
+Route::post('/instituicao/salvarCurso/{id}', ["as" => 'selecionar.curso', 'uses' => "InstituicaoController@salvarCurso"]);
+
+
 Route::get('/instituicao/apagar/{id}','InstituicaoController@apagar');
 /* fim rotas instituicao*/
 
@@ -50,6 +58,9 @@ Route::post('/aluno/salvar','AlunoController@salvar');
 
 Route::get('/aluno/editar/{id}','AlunoController@editar');
 Route::post('/aluno/update/{id}','AlunoController@update');
+
+
+Route::get('/aluno/alterar_status/{id}/{status}','AlunoController@alterarStatus');
 
 Route::get('/aluno/apagar/{id}','AlunoController@apagar');
 

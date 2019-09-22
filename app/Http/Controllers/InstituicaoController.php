@@ -9,6 +9,7 @@ use Validator;
 
 use Request;
 use App\Curso;
+use App\InstituicaoCurso;
 
 class InstituicaoController extends Controller
 {
@@ -16,10 +17,6 @@ class InstituicaoController extends Controller
         $instituicoes = Instituicao::all();
 
         return view('instituicao/listar')->with('instituicoes',$instituicoes);
-    }
-
-    public function cadastro(){
-        return view('instituicao/cadastro');
     }
 
     public function salvar()
@@ -88,5 +85,51 @@ class InstituicaoController extends Controller
         $instituicao->delete();
 
         return redirect()->action('InstituicaoController@listar');
+    }
+
+
+    public function verCursos($id){
+        $cursos = InstituicaoCurso::find($id)
+            ->join('cursos', 'instituicao_cursos.id_curso', '=', 'cursos.id')
+            ->join('instituicoes', 'instituicao_cursos.id_instituicao', '=', 'instituicoes.id')
+            ->select('instituicao_cursos.*', 'instituicoes.nome as nome_instituicao', 'cursos.nome as nome_curso')
+            ->get();
+        return view('instituicao/ver_cursos')->with('cursos',$cursos);
+    }
+
+
+
+
+    public function cadastrarCursos($id){
+        $instituicao =  Instituicao::find($id);
+        $cursos = Curso::all();
+        return view('instituicao/cadastrar_cursos')->with('instituicao', $instituicao)->with('cursos',$cursos);
+    }
+
+    public function cadastro(){
+        return view('instituicao/cadastro');
+    }
+
+    public function salvarCurso(Request $request, $id){
+
+        $id_curso = Request()->input('curso');
+
+        $instituicao_curso = new InstituicaoCurso();
+        $instituicao_curso->id_curso =  $id_curso;
+        $instituicao_curso->id_instituicao = $id;
+        $instituicao_curso->status = 1;
+        $instituicao_curso->save();
+
+        return redirect()->action('InstituicaoController@verCursos',$id);
+    }
+
+    public function alterarCurso($id,$status)
+    {
+        $instituicao_curso =  InstituicaoCurso::find($id);
+        $instituicao_curso->status = $status;
+        $id_instituicao =$instituicao_curso->id_instituicao;
+        $instituicao_curso->save();
+
+        return redirect()->action('InstituicaoController@verCursos',$id_instituicao);
     }
 }

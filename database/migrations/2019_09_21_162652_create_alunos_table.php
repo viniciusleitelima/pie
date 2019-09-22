@@ -27,6 +27,9 @@ class CreateAlunosTable extends Migration
             $table->string('cidade');
             $table->string('uf');
             $table->integer('status');
+            $table->integer('id_curso');
+
+            $table->foreign('id_curso')->references('id')->on('cursos');
             $table->timestamps();
         });
     }

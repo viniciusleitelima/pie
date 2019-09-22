@@ -39,7 +39,7 @@
                         <td>INATIVO</td>
                     @endif
 
-                    <td><a class="btn btn-sm btn-info" href="{{ action("InstituicaoController@editar", $i->id) }}">EDITAR</a>&nbsp;<a class="btn btn-sm btn-danger" href="#" onclick="apagar('{{ action("InstituicaoController@apagar", $i->id) }}');">APAGAR</a></td>
+                    <td><a class="btn btn-sm btn-warning" href="{{ action("InstituicaoController@verCursos", $i->id) }}">VER CURSOS</a>&nbsp;<a class="btn btn-sm btn-info" href="{{ action("InstituicaoController@editar", $i->id) }}">EDITAR</a>&nbsp;<a class="btn btn-sm btn-danger" href="#" onclick="apagar('{{ action("InstituicaoController@apagar", $i->id) }}');">APAGAR</a></td>
 
                 </tr>
             @endforeach

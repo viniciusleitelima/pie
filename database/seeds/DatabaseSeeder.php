@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        $this->call('AlunoTableSeeder');
+        $this->call('InstituicaoCursosTableSeeder');
     }
 }
 
@@ -37,6 +37,14 @@ class AlunoTableSeeder extends Seeder{
     public function run()
     {
         DB::insert('INSERT INTO alunos (nome,cpf,dt_nascimento,email,celular,endereco,numero,bairro,cidade,uf,status) VALUES (?,?,?,?,?,?,?,?,?,?,?)', array('TESTE','09481237485','1995-11-17','teste@teste.com','99328-3489','rua teste','23','teste','testando','te',1));
+
+    }
+}
+
+class InstituicaoCursosTableSeeder extends Seeder{
+    public function run()
+    {
+        DB::insert('INSERT INTO instituicao_cursos (id_curso,id_instituicao,status) VALUES (?,?,?)', array(1,1,1));
 
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Aluno;
 use Illuminate\Support\Facades\DB;
 
+use App\Curso;
+use App\AlunoCurso;
 use Validator;
 
 use Request;
@@ -14,13 +16,17 @@ class AlunoController extends Controller
 {
 
     public function listar(){
-        $alunos = Aluno::all();
+        $alunos =DB::table('alunos')
+            ->join('cursos', 'alunos.id_curso', '=', 'cursos.id')
+            ->select('alunos.*', 'cursos.nome as nome_curso')
+            ->get();
 
         return view('aluno/listar')->with('alunos',$alunos);
     }
 
     public function cadastro(){
-        return view('aluno/cadastro');
+        $cursos = Curso::all();
+        return view('aluno/cadastro')->with('cursos',$cursos);
     }
 
     public function salvar()
@@ -36,6 +42,11 @@ class AlunoController extends Controller
         $cidade = Request()->input('cidade');
         $uf = Request()->input('uf');
         $status = Request()->input('status');
+        $id_curso = Request()->input('curso');
+
+
+
+
 
         $validator = Validator::make(
             [
@@ -67,19 +78,26 @@ class AlunoController extends Controller
         $aluno->cidade = $cidade;
         $aluno->uf = $uf;
         $aluno->status = $status;
+        $aluno->id_curso = $id_curso;
         $aluno->save();
+
+
 
         return redirect()->action('AlunoController@listar')->withInput();
     }
 
     public function editar($id)
     {
-        $aluno =  Aluno::find($id);
-
+        $aluno =  Aluno::find($id)
+                        ->join('cursos', 'alunos.id_curso', '=', 'cursos.id')
+                        ->select('alunos.*', 'cursos.nome as nome_curso')
+                        ->where('alunos.id', '=', $id)
+                        ->get();
+        $cursos = Curso::all();
         if (empty($aluno)){
             return 'Aluno nao existe';
         }else {
-            return view('aluno/editar')->with('aluno', $aluno);
+            return view('aluno/editar')->with('aluno', $aluno)->with('cursos',$cursos);
         }
     }
 
@@ -116,8 +134,17 @@ class AlunoController extends Controller
 
     public function apagar($id)
     {
-        $curso =  Aluno::find($id);
-        $curso->delete();
+        $aluno =  Aluno::find($id);
+        $aluno->delete();
+
+        return redirect()->action('AlunoController@listar');
+    }
+
+    public function alterarStatus($id,$status)
+    {
+        $aluno =  Aluno::find($id);
+        $aluno->status = $status;
+        $aluno->save();
 
         return redirect()->action('AlunoController@listar');
     }

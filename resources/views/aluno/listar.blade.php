@@ -9,7 +9,6 @@
             }
         }
     </script>
-
     <div class="container">
         <div class="col-lg-12">
             <div class="row">
@@ -26,6 +25,7 @@
                 <td>NOME</td>
                 <td>CPF</td>
                 <td>EMAIL</td>
+                <td>CURSO</td>
                 <td>STATUS</td>
                 <td>AÇÃO</td>
             </tr>
@@ -35,13 +35,23 @@
                     <td>{{ $value->nome }}</td>
                     <td>{{ $value->cpf }}</td>
                     <td>{{ $value->email }}</td>
+                    <td>{{ $value->nome_curso }}</td>
                     @if($value->status == 1)
                         <td>ATIVO</td>
                     @else
                         <td>INATIVO</td>
                     @endif
 
-                    <td><a class="btn btn-sm btn-info" href="{{ action("AlunoController@editar", $value->id) }}">VER</a>&nbsp;<a class="btn btn-sm btn-danger" href="#" onclick="apagar('{{ action("AlunoController@apagar", $value->id) }}');">APAGAR</a></td>
+                    <td>
+                        @if($value->status == 1)
+                            @php($status = 0)
+                            <a class="btn btn-sm btn-warning" href="{{ action("AlunoController@alterarStatus", [$value->id, $status] ) }}">INATIVAR</a>&nbsp;
+                        @else
+                            @php($status = 1)
+                            <a class="btn btn-sm btn-warning" href="{{ action("AlunoController@alterarStatus", [$value->id, $status]) }}">ATIVAR</a>&nbsp;
+                        @endif
+                        <a class="btn btn-sm btn-info" href="{{ action("AlunoController@editar", $value->id) }}">VER</a>&nbsp;
+                        <a class="btn btn-sm btn-danger" href="#" onclick="apagar('{{ action("AlunoController@apagar", $value->id) }}');">APAGAR</a></td>
 
                 </tr>
             @endforeach

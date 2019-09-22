@@ -13,7 +13,6 @@
             </ul>
         </div>
     @endif
-    {{count($errors)}}
     <div class="container">
         <form action="{{ action('AlunoController@salvar') }}" method="POST">
             <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
@@ -63,6 +62,15 @@
             <div class="form-group">
                 <label>STATUS:</label>
                 <input type="text" name="status" value="{{old('status')}}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Curso:</label>
+                <select name="curso" class="form-control" required>
+                    @foreach($cursos as $c)
+                        <option name="id_curso" value="{{$c->id}}">{{$c->nome}}</option>
+                    @endforeach
+                </select>
             </div>
             <button type="submit" class="btn btn-success">Cadastrar</button>
         </form>
