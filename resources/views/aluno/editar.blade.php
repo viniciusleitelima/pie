@@ -2,6 +2,7 @@
 @section('title', 'Edição de Aluno')
 
 @section('content')
+    @if ((Auth::user()->email == 'carla.freitas@teste.com') or (Auth::user()->email == 'pedro.silva@teste.com'))
     <h1>Editar Aluno - {{$aluno[0]->nome}}</h1>
     <div class="container">
         <form action="{{ action('AlunoController@update', $aluno[0]->id) }}" method="POST">
@@ -87,4 +88,11 @@
             <button type="submit" class="btn btn-success">Atualizar</button>
         </form>
     </div>
+    @else
+        <div class="container">
+            <div class="alert alert-danger">
+                <strong>ACESSO NEGADO</strong>
+            </div>
+        </div>
+    @endif
 @stop

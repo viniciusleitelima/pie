@@ -15,9 +15,11 @@
             <div class="row">
                 <h1>Lista de Cursos</h1>
             </div>
-            <div class="row">
-                <a class="btn btn-sm btn-success" href="{{ action("CursoController@cadastro") }}">Cadastrar</a>
-            </div>
+            @if ((Auth::user()->email == 'carla.freitas@teste.com') or (Auth::user()->email == 'pedro.silva@teste.com'))
+                <div class="row">
+                    <a class="btn btn-sm btn-success" href="{{ action("CursoController@cadastro") }}">Cadastrar</a>
+                </div>
+            @endif
         </div><br />
 
         <table width="100%" class="table table-striped table-bordered table-hover">
@@ -38,9 +40,11 @@
                     @else
                         <td>INATIVO</td>
                     @endif
-
-                    <td><a class="btn btn-sm btn-info" href="{{ action("CursoController@editar", $value->id) }}">EDITAR</a>&nbsp;<a class="btn btn-sm btn-danger" href="#" onclick="apagar('{{ action("CursoController@apagar", $value->id) }}');">APAGAR</a></td>
-
+                    @if ((Auth::user()->email == 'carla.freitas@teste.com') or (Auth::user()->email == 'pedro.silva@teste.com'))
+                         <td><a class="btn btn-sm btn-info" href="{{ action("CursoController@editar", $value->id) }}">EDITAR</a>&nbsp;<a class="btn btn-sm btn-danger" href="#" onclick="apagar('{{ action("CursoController@apagar", $value->id) }}');">APAGAR</a></td>
+                    @else
+                        <td></td>
+                    @endif
                 </tr>
             @endforeach
         </table>

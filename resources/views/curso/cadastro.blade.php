@@ -2,6 +2,7 @@
 @section('title', 'Cadastro de Curso')
 
 @section('content')
+    @if ((Auth::user()->email == 'carla.freitas@teste.com') or (Auth::user()->email == 'pedro.silva@teste.com'))
     <h1>Cadastro</h1>
     @if(count($errors) > 0)
         <div class="alert alert-danger">
@@ -33,4 +34,11 @@
         </div>
         <button type="submit" class="btn btn-success">Cadastrar</button>
     </form>
+    @else
+        <div class="container">
+            <div class="alert alert-danger">
+                <strong>ACESSO NEGADO</strong>
+            </div>
+        </div>
+    @endif
 @stop

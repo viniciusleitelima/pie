@@ -13,11 +13,14 @@
     <div class="container">
         <div class="col-lg-12">
             <div class="row">
-                <h1>Lista de Cursos da {{$cursos[0]["nome_instituicao"]}}</h1>
+                <h1>Lista de Cursos da {{$cursos[0]->nome_instituicao}}</h1>
             </div>
-            <div class="row">
-                <a class="btn btn-sm btn-success" href="{{ action("InstituicaoController@cadastrarCursos",$cursos[0]["id_instituicao"])}}">Cadastrar</a>
-            </div>
+
+            @if ((Auth::user()->email == 'carla.freitas@teste.com') or (Auth::user()->email == 'pedro.silva@teste.com'))
+                <div class="row">
+                    <a class="btn btn-sm btn-success" href="{{ action("InstituicaoController@cadastrarCursos",$cursos[0]["id_instituicao"])}}">Cadastrar</a>
+                </div>
+            @endif
         </div><br />
 
         <table width="100%" class="table table-striped table-bordered table-hover">
@@ -36,18 +39,21 @@
                     @else
                         <td>INATIVO</td>
                     @endif
+                    @if ((Auth::user()->email == 'carla.freitas@teste.com') or (Auth::user()->email == 'pedro.silva@teste.com'))
+                        <td>
+                            @if($i->status == 1)
+                                @php($status = 0)
+                                <a class="btn btn-sm btn-warning" href="{{ action("InstituicaoController@alterarCurso", [$i->id, $status] ) }}">INATIVAR</a>&nbsp;
+                            @else
+                                @php($status = 1)
+                                <a class="btn btn-sm btn-warning" href="{{ action("InstituicaoController@alterarCurso", [$i->id, $status]) }}">ATIVAR</a>&nbsp;
+                            @endif
 
-                    <td>
-                        @if($i->status == 1)
-                            @php($status = 0)
-                            <a class="btn btn-sm btn-warning" href="{{ action("InstituicaoController@alterarCurso", [$i->id, $status] ) }}">INATIVAR</a>&nbsp;
-                        @else
-                            @php($status = 1)
-                            <a class="btn btn-sm btn-warning" href="{{ action("InstituicaoController@alterarCurso", [$i->id, $status]) }}">ATIVAR</a>&nbsp;
-                        @endif
-
-                        <a class="btn btn-sm btn-danger" href="#" onclick="apagar('{{ action("InstituicaoController@apagar", $i->id) }}');">APAGAR</a>
-                    </td>
+                            <a class="btn btn-sm btn-danger" href="#" onclick="apagar('{{ action("InstituicaoController@apagar", $i->id) }}');">APAGAR</a>
+                        </td>
+                     @else
+                        <td></td>
+                     @endif
 
                 </tr>
             @endforeach

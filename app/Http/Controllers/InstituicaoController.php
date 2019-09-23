@@ -95,10 +95,11 @@ class InstituicaoController extends Controller
 
 
     public function verCursos($id){
-        $cursos = InstituicaoCurso::find($id)
+        $cursos = DB::table('instituicao_cursos')
             ->join('cursos', 'instituicao_cursos.id_curso', '=', 'cursos.id')
             ->join('instituicoes', 'instituicao_cursos.id_instituicao', '=', 'instituicoes.id')
             ->select('instituicao_cursos.*', 'instituicoes.nome as nome_instituicao', 'cursos.nome as nome_curso')
+            ->where('instituicao_cursos.id_instituicao', '=',$id)
             ->get();
         return view('instituicao/ver_cursos')->with('cursos',$cursos);
     }
