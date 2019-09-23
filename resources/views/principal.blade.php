@@ -43,6 +43,9 @@
                     <a class="navbar-brand" href="{{ url('/alunos') }}">
                         Alunos
                     </a>
+                    <a class="navbar-brand" href="{{ url('/gestores') }}">
+                        Gestores
+                    </a>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

@@ -18,14 +18,14 @@ class CreateAlunosTable extends Migration
             $table->increments('id');
             $table->string('nome');
             $table->string('cpf', 11)->unique();
-            $table->date('dt_nascimento');
+            $table->date('dt_nascimento')->nullable();;
             $table->string('email',100)->unique();
-            $table->string('celular');
-            $table->string('endereco');
-            $table->string('numero');
-            $table->string('bairro');
-            $table->string('cidade');
-            $table->string('uf');
+            $table->string('celular')->nullable();;
+            $table->string('endereco')->nullable();;
+            $table->string('numero')->nullable();;
+            $table->string('bairro')->nullable();;
+            $table->string('cidade')->nullable();;
+            $table->string('uf')->nullable();;
             $table->integer('status');
             $table->integer('id_curso');
 

@@ -18,7 +18,7 @@
 
             @if ((Auth::user()->email == 'carla.freitas@teste.com') or (Auth::user()->email == 'pedro.silva@teste.com'))
                 <div class="row">
-                    <a class="btn btn-sm btn-success" href="{{ action("InstituicaoController@cadastrarCursos",$cursos[0]["id_instituicao"])}}">Cadastrar</a>
+                    <a class="btn btn-sm btn-success" href="{{ action("InstituicaoController@cadastrarCursos",$cursos[0]->id_instituicao)}}">Cadastrar</a>
                 </div>
             @endif
         </div><br />

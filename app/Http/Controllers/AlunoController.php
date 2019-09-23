@@ -67,7 +67,7 @@ class AlunoController extends Controller
         );
 
         if ($validator->fails()){
-            return redirect()->action('Aluno@cadastro')->withErrors($validator)->withInput();
+            return redirect()->action('AlunoController@cadastro')->withErrors($validator)->withInput();
         }
         $aluno = new Aluno();
         $aluno->nome =  $nome;

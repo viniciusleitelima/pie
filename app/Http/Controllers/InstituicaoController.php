@@ -22,7 +22,7 @@ class InstituicaoController extends Controller
             ->select('instituicao_cursos.id_instituicao')
             ->get();
 
-        return view('instituicao/listar')->with('instituicoes',$instituicoes)->with('cursos',$cursos);
+        return view('instituicao/listar',['cursos' => $cursos])->with('instituicoes',$instituicoes);
     }
 
     public function salvar()

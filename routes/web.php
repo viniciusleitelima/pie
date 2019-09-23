@@ -91,6 +91,29 @@ Route::get('/aluno/apagar/{id}','AlunoController@apagar', function (){
 
 /* fim rotas aluno */
 
+
+/* rotas gestores */
+Route::get('/gestores','GestorController@listar', function (){
+})->middleware('auth');
+
+Route::get('/gestor/cadastro','GestorController@cadastro', function (){
+})->middleware('auth');
+Route::post('/gestor/salvar','GestorController@salvar', function (){
+})->middleware('auth');
+
+Route::get('/gestor/alterar_status/{id}/{status}','GestorController@alterarStatus', function (){
+})->middleware('auth');
+
+Route::get('/gestor/editar/{id}','GestorController@editar', function (){
+})->middleware('auth');
+Route::post('/gestor/update/{id}','GestorController@update', function (){
+})->middleware('auth');
+
+Route::get('/gestor/apagar/{id}','GestorController@apagar', function (){
+})->middleware('auth');
+
+/* fim rotas gestores */
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
