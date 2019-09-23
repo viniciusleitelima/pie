@@ -72,6 +72,15 @@
                     @endforeach
                 </select>
             </div>
+
+            <div class="form-group">
+                <label>Instituição:</label>
+                <select name="instituicao" class="form-control" required>
+                    @foreach($instituicoes as $i)
+                        <option name="id_instituicao" value="{{$i->id}}">{{$i->nome}}</option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit" class="btn btn-success">Cadastrar</button>
         </form>
     </div>

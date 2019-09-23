@@ -50,7 +50,15 @@
 
             <div class="form-group">
                 <label>STATUS:</label>
-                <input type="text" name="status" class="form-control" value="{{$aluno[0]->status}}">
+                <select name="status" class="form-control" required>
+                    @if( $aluno[0]->status == 1)
+                        <option selected="selected" name="status" value="1">ATIVO</option>
+                        <option  name="status" value="0">INATIVO</option>
+                    @else
+                        <option selected="selected" name="status" value="1">ATIVO</option>
+                        <option  name="status" value="0">INATIVO</option>
+                    @endif
+                </select>
             </div>
             <div class="form-group">
                 <label>Curso:</label>
@@ -60,6 +68,18 @@
                             <option selected="selected" name="id_curso" value="{{$c->id}}">{{$c->nome}}</option>
                         @else
                             <option name="id_curso" value="{{$c->id}}">{{$c->nome}}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Instituição:</label>
+                <select name="instituicao" class="form-control" required>
+                    @foreach($instituicoes as $i)
+                        @if($i->id == $aluno[0]->id_instituicao)
+                            <option selected="selected" name="id_instituicao" value="{{$i->id}}">{{$i->nome}}</option>
+                        @else
+                            <option name="id_instituicao" value="{{$i->id}}">{{$i->nome}}</option>
                         @endif
                     @endforeach
                 </select>

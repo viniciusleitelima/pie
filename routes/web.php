@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Route::get('/teste', function (){
@@ -20,49 +20,74 @@ Route::get('/teste', function (){
 /* rotas de instituicao */
 Route::get('/instituicoes','InstituicaoController@listar');
 
-Route::get('/instituicao/cadastro','InstituicaoController@cadastro');
-Route::post('/instituicao/salvar','InstituicaoController@salvar');
+Route::get('/instituicao/cadastro','InstituicaoController@cadastro', function (){
+})->middleware('auth');
+Route::post('/instituicao/salvar','InstituicaoController@salvar', function (){
+})->middleware('auth');
 
-Route::get('/instituicao/editar/{id}','InstituicaoController@editar');
-Route::post('/instituicao/update/{id}','InstituicaoController@update');
+Route::get('/instituicao/editar/{id}','InstituicaoController@editar', function (){
+})->middleware('auth');
+Route::post('/instituicao/update/{id}','InstituicaoController@update', function (){
+})->middleware('auth');
 
-Route::get('/instituicao/ver_cursos/{id}','InstituicaoController@verCursos');
+Route::get('/instituicao/ver_cursos/{id}','InstituicaoController@verCursos', function (){
+})->middleware('auth');
 
-Route::get('/instituicao/cadastrar_cursos/{id}','InstituicaoController@cadastrarCursos');
-Route::get('/instituicao/alterar_curso/{id}/{status}','InstituicaoController@alterarCurso');
+Route::get('/instituicao/cadastrar_cursos/{id}','InstituicaoController@cadastrarCursos', function (){
+})->middleware('auth');
+Route::get('/instituicao/alterar_curso/{id}/{status}','InstituicaoController@alterarCurso', function (){
+})->middleware('auth');
 
-Route::post('/instituicao/salvarCurso/{id}', ["as" => 'selecionar.curso', 'uses' => "InstituicaoController@salvarCurso"]);
+Route::get('/instituicao/alterar_status/{id}/{status}','InstituicaoController@alterarStatus', function (){
+})->middleware('auth');
+
+Route::post('/instituicao/salvarCurso/{id}', ["as" => 'selecionar.curso', 'uses' => "InstituicaoController@salvarCurso"], function (){
+})->middleware('auth');
 
 
-Route::get('/instituicao/apagar/{id}','InstituicaoController@apagar');
+Route::get('/instituicao/apagar/{id}','InstituicaoController@apagar', function (){
+})->middleware('auth');
 /* fim rotas instituicao*/
 
 /* rotas curso */
-Route::get('/cursos','CursoController@listar');
+Route::get('/cursos','CursoController@listar', function (){
+})->middleware('auth');
 
-Route::get('/curso/cadastro','CursoController@cadastro');
-Route::post('/curso/salvar','CursoController@salvar');
+Route::get('/curso/cadastro','CursoController@cadastro', function (){
+})->middleware('auth');
+Route::post('/curso/salvar','CursoController@salvar', function (){
+})->middleware('auth');
 
-Route::get('/curso/editar/{id}','CursoController@editar');
-Route::post('/curso/update/{id}','CursoController@update');
+Route::get('/curso/editar/{id}','CursoController@editar', function (){
+})->middleware('auth');
+Route::post('/curso/update/{id}','CursoController@update', function (){
+})->middleware('auth');
 
-Route::get('/curso/apagar/{id}','CursoController@apagar');
+Route::get('/curso/apagar/{id}','CursoController@apagar', function (){
+})->middleware('auth');
 
 /* fim rotas curso */
 
 /* rotas aluno */
-Route::get('/alunos','AlunoController@listar');
+Route::get('/alunos','AlunoController@listar', function (){
+})->middleware('auth');
 
-Route::get('/aluno/cadastro','AlunoController@cadastro');
-Route::post('/aluno/salvar','AlunoController@salvar');
+Route::get('/aluno/cadastro','AlunoController@cadastro', function (){
+})->middleware('auth');
+Route::post('/aluno/salvar','AlunoController@salvar', function (){
+})->middleware('auth');
 
-Route::get('/aluno/editar/{id}','AlunoController@editar');
-Route::post('/aluno/update/{id}','AlunoController@update');
+Route::get('/aluno/editar/{id}','AlunoController@editar', function (){
+})->middleware('auth');
+Route::post('/aluno/update/{id}','AlunoController@update', function (){
+})->middleware('auth');
 
 
-Route::get('/aluno/alterar_status/{id}/{status}','AlunoController@alterarStatus');
+Route::get('/aluno/alterar_status/{id}/{status}','AlunoController@alterarStatus', function (){
+})->middleware('auth');
 
-Route::get('/aluno/apagar/{id}','AlunoController@apagar');
+Route::get('/aluno/apagar/{id}','AlunoController@apagar', function (){
+})->middleware('auth');
 
 /* fim rotas aluno */
 

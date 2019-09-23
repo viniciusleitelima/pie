@@ -16,7 +16,13 @@ class InstituicaoController extends Controller
     public function listar(){
         $instituicoes = Instituicao::all();
 
-        return view('instituicao/listar')->with('instituicoes',$instituicoes);
+        $cursos = DB::table('instituicao_cursos')
+            ->join('cursos', 'instituicao_cursos.id_curso', '=', 'cursos.id')
+            ->join('instituicoes', 'instituicao_cursos.id_instituicao', '=', 'instituicoes.id')
+            ->select('instituicao_cursos.id_instituicao')
+            ->get();
+
+        return view('instituicao/listar')->with('instituicoes',$instituicoes)->with('cursos',$cursos);
     }
 
     public function salvar()
@@ -131,5 +137,14 @@ class InstituicaoController extends Controller
         $instituicao_curso->save();
 
         return redirect()->action('InstituicaoController@verCursos',$id_instituicao);
+    }
+
+    public function alterarStatus($id,$status)
+    {
+        $instituicao =  Instituicao::find($id);
+        $instituicao->status = $status;
+        $instituicao->save();
+
+        return redirect()->action('InstituicaoController@listar');
     }
 }

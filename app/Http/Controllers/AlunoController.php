@@ -18,15 +18,21 @@ class AlunoController extends Controller
     public function listar(){
         $alunos =DB::table('alunos')
             ->join('cursos', 'alunos.id_curso', '=', 'cursos.id')
-            ->select('alunos.*', 'cursos.nome as nome_curso')
+            ->join('instituicoes', 'alunos.id_instituicao', '=', 'instituicoes.id')
+            ->select('alunos.*', 'cursos.nome as nome_curso', 'instituicoes.nome as nome_instituicao')
             ->get();
 
         return view('aluno/listar')->with('alunos',$alunos);
     }
 
     public function cadastro(){
-        $cursos = Curso::all();
-        return view('aluno/cadastro')->with('cursos',$cursos);
+        $cursos = DB::table('cursos')
+                  ->where('status', '=', 1)
+                  ->get();
+        $instituicoes = DB::table('instituicoes')
+            ->where('status', '=', 1)
+            ->get();
+        return view('aluno/cadastro')->with('cursos',$cursos)->with('instituicoes',$instituicoes);
     }
 
     public function salvar()
@@ -43,10 +49,7 @@ class AlunoController extends Controller
         $uf = Request()->input('uf');
         $status = Request()->input('status');
         $id_curso = Request()->input('curso');
-
-
-
-
+        $id_instituicao = Request()->input('instituicao');
 
         $validator = Validator::make(
             [
@@ -79,6 +82,7 @@ class AlunoController extends Controller
         $aluno->uf = $uf;
         $aluno->status = $status;
         $aluno->id_curso = $id_curso;
+        $aluno->id_instituicao = $id_instituicao;
         $aluno->save();
 
 
@@ -90,14 +94,20 @@ class AlunoController extends Controller
     {
         $aluno =  Aluno::find($id)
                         ->join('cursos', 'alunos.id_curso', '=', 'cursos.id')
-                        ->select('alunos.*', 'cursos.nome as nome_curso')
+                        ->join('instituicoes', 'alunos.id_instituicao', '=', 'instituicoes.id')
+                        ->select('alunos.*', 'cursos.nome as nome_curso','instituicoes.nome as nome_instituicao')
                         ->where('alunos.id', '=', $id)
                         ->get();
-        $cursos = Curso::all();
+        $cursos = DB::table('cursos')
+            ->where('status', '=', 1)
+            ->get();
+        $instituicoes = DB::table('instituicoes')
+            ->where('status', '=', 1)
+            ->get();
         if (empty($aluno)){
             return 'Aluno nao existe';
         }else {
-            return view('aluno/editar')->with('aluno', $aluno)->with('cursos',$cursos);
+            return view('aluno/editar')->with('aluno', $aluno)->with('cursos',$cursos)->with('instituicoes',$instituicoes);
         }
     }
 
@@ -114,6 +124,8 @@ class AlunoController extends Controller
         $cidade = Request()->input('cidade');
         $uf = Request()->input('uf');
         $status = Request()->input('status');
+        $id_curso = Request()->input('curso');
+        $id_instituicao = Request()->input('instituicao');
 
         $aluno =  Aluno::find($id);
         $aluno->nome =  $nome;
@@ -127,6 +139,8 @@ class AlunoController extends Controller
         $aluno->cidade = $cidade;
         $aluno->uf = $uf;
         $aluno->status = $status;
+        $aluno->id_curso = $id_curso;
+        $aluno->id_instituicao = $id_instituicao;
         $aluno->save();
 
         return redirect()->action('AlunoController@listar')->withInput();

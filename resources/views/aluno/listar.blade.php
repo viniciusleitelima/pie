@@ -26,6 +26,7 @@
                 <td>CPF</td>
                 <td>EMAIL</td>
                 <td>CURSO</td>
+                <td>INSTITUIÇÃO</td>
                 <td>STATUS</td>
                 <td>AÇÃO</td>
             </tr>
@@ -36,6 +37,7 @@
                     <td>{{ $value->cpf }}</td>
                     <td>{{ $value->email }}</td>
                     <td>{{ $value->nome_curso }}</td>
+                    <td>{{ $value->nome_instituicao }}</td>
                     @if($value->status == 1)
                         <td>ATIVO</td>
                     @else
